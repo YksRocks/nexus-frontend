@@ -1,8 +1,36 @@
-# React + Vite
+# Nexus
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##### Connect, Compete, and Thrive Together.
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a front-end repository of the Nexus project that provides a platform where students can connect, share, collaborate, and engage with various coding contests.
+
+## Features
+
+- 
+- 
+- 
+- 
+
+## Technologies Used
+
+- React.js
+- Chakra UI
+- Tailwind CSS
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js and npm installed on your machine
+- MongoDB database
+
+### Installation
+
+- Clone the repository: `git clone https://github.com/hrshkshri/nexus.git`
+- Install dependencies: `npm install`
+- Set up environment variables:
+  - Create a `.env` file in the project root directory.
+  <!-- - Add the required environment variables following the `.env.example` file. -->
+- Start the development server: `npm run dev`
