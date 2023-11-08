@@ -11,7 +11,7 @@ import {
 import { AiOutlineLogout } from 'react-icons/ai';
 import { MdOutlineSettings } from 'react-icons/md';
 import { BsFillPersonFill } from 'react-icons/bs';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom';
 import { fetchUserData } from '../../../services/userServices';
 
 const Profile = () => {
@@ -32,20 +32,26 @@ const Profile = () => {
 
     return (
         <div>
-            <Menu className="bg-black">
-                <MenuButton src={userData.userImg} as={Avatar} size="sm" cursor={'pointer'} />
-                <MenuList className="bg-black">
+            <Menu>
+                <MenuButton as={Avatar} size="sm" cursor={'pointer'} src={userData.userImg} />
+                <MenuList sx={{ backgroundColor: 'black' }}>
                     <MenuGroup title={userData.username}>
                         <Link to="/profile">
-                            <MenuItem className='hover:bg-zinc-800' ><BsFillPersonFill className="text-xl mx-2" /> Profile</MenuItem>
+                            <MenuItem sx={{ backgroundColor: 'black', _hover: { bg: 'zinc.800' } }}>
+                                <BsFillPersonFill className="text-xl mx-2" /> Profile
+                            </MenuItem>
                         </Link>
                     </MenuGroup>
                     <MenuDivider />
                     <MenuGroup title='Help'>
                         <Link to="/settings">
-                            <MenuItem className='hover:bg-zinc-800'><MdOutlineSettings className="text-xl mx-2" /> Settings</MenuItem>
+                            <MenuItem sx={{ backgroundColor: 'black', _hover: { bg: 'zinc.800' } }}>
+                                <MdOutlineSettings className="text-xl mx-2" /> Settings
+                            </MenuItem>
                         </Link>
-                        <MenuItem className='hover:bg-zinc-800' onClick={handleSignOut}><AiOutlineLogout className="text-xl mx-2 text-red-500" /> Sign Out</MenuItem>
+                        <MenuItem sx={{ backgroundColor: 'black', _hover: { bg: 'zinc.800' } }} onClick={handleSignOut}>
+                            <AiOutlineLogout className="text-xl mx-2 text-red-500" /> Sign Out
+                        </MenuItem>
                     </MenuGroup>
                 </MenuList>
             </Menu>
