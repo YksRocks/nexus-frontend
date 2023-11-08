@@ -40,7 +40,7 @@ const Challenge = ({ challenge, role }) => {
         )}
         <h2 className="text-lg font-semibold">{challenge.name}</h2>
         {isEditing ? (
-          <div className="flex flex-col w-full"> {/* Ensure the parent is flex and full width */}
+          <div className="flex flex-col"> {/* Ensure the parent is flex and full width */}
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}

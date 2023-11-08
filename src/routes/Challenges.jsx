@@ -27,7 +27,10 @@ const Challenges = () => {
   return (
     <div className="p-2 flex flex-col space-y-5">
       {challengesData.map((challenge) => (
-        <Challenge key={challenge._id} challenge={challenge} role={userData.role} />
+        <Challenge
+          key={challenge._id}
+          challenge={challenge}
+          role={userData.role} />
       ))}
     </div>
   );
