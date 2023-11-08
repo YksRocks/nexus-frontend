@@ -21,7 +21,7 @@ const Challenge = ({ challenge, role, onUpdate }) => {
 
   const handleCancel = async () => {
     setIsEditing(false);
-    setDescription(challenge.description); // Reset description to initial value on cancel
+    setDescription(challenge.description);
   };
 
   const handleUpdate = async () => {
@@ -85,13 +85,13 @@ const Challenge = ({ challenge, role, onUpdate }) => {
         )}
         <h2 className="text-lg font-semibold">{challenge.name}</h2>
         {isEditing ? (
-          <div className="flex flex-col"> {/* Ensure the parent is flex and full width */}
+          <div className="flex flex-col">
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="flex-grow h-32 min-h-[8rem] bg-zinc-700 text-white p-2 rounded"
             />
-            <div className="flex justify-start space-x-3 mt-2"> {/* Added mt-2 for spacing */}
+            <div className="flex justify-start space-x-3 mt-2">
               <button
                 onClick={handleUpdate}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

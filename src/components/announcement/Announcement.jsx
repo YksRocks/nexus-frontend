@@ -26,7 +26,7 @@ const Announcement = ({ announcement, role, onUpdate }) => {
 
     const handleCancel = () => {
         setIsEditing(false);
-        setDescription(announcement.description); // Reset edited announcement to initial value on cancel
+        setDescription(announcement.description);
     };
 
     const handleUpdate = async () => {
@@ -54,7 +54,7 @@ const Announcement = ({ announcement, role, onUpdate }) => {
 
             if (response.status === 200) {
                 const updatedAnnouncement = response.data;
-                onUpdate(updatedAnnouncement); // Notify parent component of the update
+                onUpdate(updatedAnnouncement);
                 setIsEditing(false);
 
                 toast({

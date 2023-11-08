@@ -169,7 +169,6 @@ function Profile() {
         }
     }
 
-
     const handleUpdateBio = async () => {
 
         if (!updatedBio.trim()) {
@@ -249,7 +248,7 @@ function Profile() {
                                             type="button"
                                             onClick={() => {
                                                 setIsEditingBio(false);
-                                                setUpdatedBio(userData.bio); // Reset the edited text
+                                                setUpdatedBio(userData.bio);
                                             }}
                                         >
                                             Cancel

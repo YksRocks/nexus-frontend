@@ -11,7 +11,7 @@ const Login = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
   const [token, setToken] = useState("");
   const toast = useToast();
-  console.log(backendUrl);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
