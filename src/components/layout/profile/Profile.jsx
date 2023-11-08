@@ -32,20 +32,20 @@ const Profile = () => {
 
     return (
         <div>
-            <Menu className="bg-black">
+            <Menu bg='black'>
                 <MenuButton src={userData.userImg} as={Avatar} size="sm" cursor={'pointer'} />
-                <MenuList className="bg-black">
+                <MenuList bg="black">
                     <MenuGroup title={userData.username}>
                         <Link to="/profile">
-                            <MenuItem className='hover:bg-zinc-800' ><BsFillPersonFill className="text-xl mx-2" /> Profile</MenuItem>
+                            <MenuItem bg="black" className='hover:bg-zinc-800' ><BsFillPersonFill className="text-xl mx-2" /> Profile</MenuItem>
                         </Link>
                     </MenuGroup>
                     <MenuDivider />
                     <MenuGroup title='Help'>
                         <Link to="/settings">
-                            <MenuItem className='hover:bg-zinc-800'><MdOutlineSettings className="text-xl mx-2" /> Settings</MenuItem>
+                            <MenuItem bg="black" className='hover:bg-zinc-800'><MdOutlineSettings className="text-xl mx-2" /> Settings</MenuItem>
                         </Link>
-                        <MenuItem className='hover:bg-zinc-800' onClick={handleSignOut}><AiOutlineLogout className="text-xl mx-2 text-red-500" /> Sign Out</MenuItem>
+                        <MenuItem bg="black" className='hover:bg-zinc-800' onClick={handleSignOut}><AiOutlineLogout className="text-xl mx-2 text-red-500" /> Sign Out</MenuItem>
                     </MenuGroup>
                 </MenuList>
             </Menu>
