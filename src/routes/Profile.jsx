@@ -41,6 +41,12 @@ function Profile() {
     };
 
     const handleUpdateCodechefId = async () => {
+
+        if (!updatedCodechefId.trim()) {
+            showToast('warning', 'The Codechef ID cannot be empty.');
+            return;
+        }
+
         try {
             const response = await axios.put(`${backendUrl}/api/users/${userData._id}`, {
                 codechefId: updatedCodechefId,
@@ -52,6 +58,7 @@ function Profile() {
 
             if (response.status === 200) {
                 showToast('success', 'Codechef ID updated successfully');
+                setUserData({ ...userData, codechefId: updatedCodechefId });
             }
         } catch (error) {
             console.error('Error updating Codechef ID', error);
@@ -72,6 +79,7 @@ function Profile() {
 
             if (response.status === 200) {
                 showToast('success', 'Codechef Profile updated successfully');
+                setUserData({ ...userData, codechefId: updatedCodechefId });
             }
         } catch (error) {
             console.error('Error updating Codechef Profile', error);
@@ -80,6 +88,12 @@ function Profile() {
     }
 
     const handleUpdateCodeforcesId = async () => {
+
+        if (!updatedCodeforcesId.trim()) {
+            showToast('warning', 'The Codeforces ID cannot be empty.');
+            return;
+        }
+
         try {
             const response = await axios.put(`${backendUrl}/api/users/${userData._id}`, {
                 codeforcesId: updatedCodeforcesId,
@@ -91,6 +105,7 @@ function Profile() {
 
             if (response.status === 200) {
                 showToast('success', 'Codeforces ID updated successfully');
+                setUserData({ ...userData, codeforcesId: updatedCodeforcesId });
             } else {
                 console.error('Codeforces ID update failed with status:', response.status);
                 showToast('error', 'Codeforces ID update failed');
@@ -102,6 +117,12 @@ function Profile() {
     };
 
     const handleUpdateLeetcodeId = async () => {
+
+        if (!updatedLeetcodeId.trim()) {
+            showToast('warning', 'The Leetcode ID cannot be empty.');
+            return;
+        }
+
         try {
             const response = await axios.put(`${backendUrl}/api/users/${userData._id}`, {
                 leetcodeId: updatedLeetcodeId,
@@ -113,6 +134,7 @@ function Profile() {
 
             if (response.status === 200) {
                 showToast('success', 'Leetcode ID updated successfully');
+                setUserData({ ...userData, leetcodeId: updatedLeetcodeId });
             }
         } catch (error) {
             console.error('Error updating Leetcode ID', error);
@@ -121,6 +143,12 @@ function Profile() {
     }
 
     const handleUpdateGithubId = async () => {
+
+        if (!updatedGithubId.trim()) {
+            showToast('warning', 'The Github ID cannot be empty.');
+            return;
+        }
+
         try {
             const response = await axios.put(`${backendUrl}/api/users/${userData._id}`, {
                 githubId: updatedGithubId,
@@ -132,6 +160,7 @@ function Profile() {
 
             if (response.status === 200) {
                 showToast('success', 'Github ID updated successfully');
+                setUserData({ ...userData, githubId: updatedGithubId });
             }
         }
         catch (error) {
@@ -142,6 +171,12 @@ function Profile() {
 
 
     const handleUpdateBio = async () => {
+
+        if (!updatedBio.trim()) {
+            showToast('warning', 'The Bio cannot be empty.');
+            return;
+        }
+
         try {
             const response = await axios.put(`${backendUrl}/api/users/${userData._id}`, {
                 bio: updatedBio,
