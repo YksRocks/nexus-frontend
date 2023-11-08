@@ -1,31 +1,76 @@
 import { useState } from "react";
+import axios from 'axios';
 import { AiFillEdit, AiOutlineCalendar } from "react-icons/ai";
 import { FaHackerrank } from "react-icons/fa";
 import { MdGroups2 } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
+import { useToast } from "@chakra-ui/react";
 
-const Challenge = ({ challenge, role }) => {
-
+const Challenge = ({ challenge, role, onUpdate }) => {
+  const toast = useToast();
+  const backendUrl = import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
+  const apiKey = import.meta.env.VITE_API_KEY;
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState(challenge.description);
-
   const updatedAt = new Date(challenge.updatedAt);
-  const formattedDate = `${updatedAt.toLocaleDateString()} ${updatedAt.toLocaleTimeString()}`;
+  const formattedDate = `${updatedAt.toLocaleDateString()}`;
 
   const handleEdit = () => {
     setIsEditing(true);
   };
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
     setIsEditing(false);
     setDescription(challenge.description); // Reset description to initial value on cancel
   };
 
-  const handleUpdate = () => {
-    // Logic to update the challenge description
-    console.log('Update description:', description);
-    // You would typically make an API call here to update the database
-    setIsEditing(false);
+  const handleUpdate = async () => {
+
+    if (!description.trim()) {
+      toast({
+        title: "Cannot Update",
+        description: "The announcement description cannot be empty.",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    try {
+      const response = await axios.put(`${backendUrl}/api/contests/${challenge._id}`, {
+        description: description
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        }
+      });
+      if (response.status === 200) {
+        const updatedChallenge = response.data;
+        setDescription(updatedChallenge.description);
+        onUpdate(updatedChallenge);
+
+        toast({
+          title: "Success",
+          description: "Challenge updated successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        setIsEditing(false);
+      }
+
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
