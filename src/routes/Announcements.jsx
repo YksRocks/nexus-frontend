@@ -24,6 +24,16 @@ const Announcements = () => {
     });
   }, []);
 
+  const handleAnnouncementUpdate = (updatedAnnouncement) => {
+    setAnnouncements(announcements.map(announcement => {
+      if(announcement._id === updatedAnnouncement._id) {
+        return updatedAnnouncement;
+      }
+      return announcement;
+    }));
+  };
+  
+
   return (
     <div className="p-2 flex flex-col space-y-5">
       {announcements.map((announcement) => (
@@ -31,6 +41,7 @@ const Announcements = () => {
           key={announcement._id}
           announcement={announcement}
           role={userData.role}
+          onUpdate={handleAnnouncementUpdate}
         />
       ))}
     </div>

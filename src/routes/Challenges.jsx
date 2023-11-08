@@ -24,13 +24,25 @@ const Challenges = () => {
     });
   }, []);
 
+  const handleChallengeUpdate = (updatedChallenge) => {
+    setChallengesData(challengesData.map(challenge => {
+      if (challenge._id === updatedChallenge._id) {
+        return updatedChallenge;
+      }
+      return challenge;
+    }));
+  };
+
+
   return (
     <div className="p-2 flex flex-col space-y-5">
       {challengesData.map((challenge) => (
         <Challenge
           key={challenge._id}
           challenge={challenge}
-          role={userData.role} />
+          role={userData.role}
+          onUpdate={handleChallengeUpdate}
+        />
       ))}
     </div>
   );
