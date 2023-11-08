@@ -1,16 +1,36 @@
-import { AiOutlineCalendar } from "react-icons/ai";
+import { useState } from "react";
+import { AiFillEdit, AiOutlineCalendar } from "react-icons/ai";
 import { FaHackerrank } from "react-icons/fa";
 import { MdGroups2 } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
 
-const Challenge = ({ challenge }) => {
+const Challenge = ({ challenge, role }) => {
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [description, setDescription] = useState(challenge.description);
 
   const updatedAt = new Date(challenge.updatedAt);
   const formattedDate = `${updatedAt.toLocaleDateString()} ${updatedAt.toLocaleTimeString()}`;
 
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setDescription(challenge.description); // Reset description to initial value on cancel
+  };
+
+  const handleUpdate = () => {
+    // Logic to update the challenge description
+    console.log('Update description:', description);
+    // You would typically make an API call here to update the database
+    setIsEditing(false);
+  };
+
   return (
     <div className="border border-zinc-700 rounded-xl p-5 bg-zinc-900/10 hover:bg-zinc-800/20 hover:cursor-pointer flex justify-between items-center space-x-5">
-      <div className="flex flex-col space-y-3">
+      <div className="w-full flex flex-col space-y-3">
         {challenge.name === "CodeChef" ? (
           <SiCodechef className="text-6xl" />
         ) : challenge.name === "HackerRank" ? (
@@ -19,18 +39,54 @@ const Challenge = ({ challenge }) => {
           <div>Default Logo</div>
         )}
         <h2 className="text-lg font-semibold">{challenge.name}</h2>
-        <p>{challenge.description}</p>
-        <div className="flex justify-between">
-          <div className="flex items-center space-x-2 mt-2">
-            <MdGroups2 className="text-3xl text-gray-400" />
-            <span className="text-gray-400">{challenge.totalParticipant}</span>
-            <AiOutlineCalendar className="text-3xl text-gray-400" />
-            <span className="text-gray-400">{formattedDate}</span>
+        {isEditing ? (
+          <div className="flex flex-col w-full"> {/* Ensure the parent is flex and full width */}
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="flex-grow h-32 min-h-[8rem] bg-zinc-700 text-white p-2 rounded"
+            />
+            <div className="flex justify-start space-x-3 mt-2"> {/* Added mt-2 for spacing */}
+              <button
+                onClick={handleUpdate}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Update
+              </button>
+              <button
+                onClick={handleCancel}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline rounded">
-            Enroll
-          </button>
-        </div>
+        ) : (
+          <>
+            <p>{challenge.description}</p>
+            <div className="flex justify-between">
+              <div className="flex items-center space-x-2 mt-2">
+                <MdGroups2 className="text-3xl text-gray-400" />
+                <span className="text-gray-400">{challenge.totalParticipant}</span>
+                <AiOutlineCalendar className="text-3xl text-gray-400" />
+                <span className="text-gray-400">{formattedDate}</span>
+              </div>
+              {role !== 'admin' && (
+                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  Enroll
+                </button>
+              )}
+              {role === 'admin' && (
+                <button
+                  onClick={handleEdit}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                >
+                  Edit <AiFillEdit className="ml-2" />
+                </button>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
