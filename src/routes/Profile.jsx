@@ -20,8 +20,6 @@ function Profile() {
     const [isEditingBio, setIsEditingBio] = useState(false);
     const { libId } = useParams();
 
-    console.log(libId);
-
     useEffect(() => {
         fetchUserData().then(data => {
             if (data) {

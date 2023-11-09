@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
-import { AiFillEdit, AiOutlineCalendar } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit, AiOutlineCalendar } from "react-icons/ai";
 import { FaHackerrank } from "react-icons/fa";
 import { MdGroups2 } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
@@ -73,6 +73,38 @@ const Challenge = ({ challenge, role, onUpdate }) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`${backendUrl}/api/contests/${challenge._id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        }
+      });
+
+      if (response.status === 200) {
+        const deletedChallenge = response.data;
+        onUpdate(deletedChallenge);
+
+        toast({
+          title: "Success",
+          description: "Challenge deleted successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  }
+
   return (
     <div className="border border-zinc-700 rounded-xl p-5 bg-zinc-900/10 hover:bg-zinc-800/20 hover:cursor-pointer flex justify-between items-center space-x-5">
       <div className="w-full flex flex-col space-y-3">
@@ -122,12 +154,20 @@ const Challenge = ({ challenge, role, onUpdate }) => {
                 </button>
               )}
               {role === 'admin' && (
-                <button
-                  onClick={handleEdit}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-                >
-                  Edit <AiFillEdit className="ml-2" />
-                </button>
+                <div className="flex space-x-3">
+                  <button
+                    onClick={handleEdit}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                  >
+                    Edit <AiFillEdit className="ml-2" />
+                  </button>
+                  <button
+                    onClick={handleDelete}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                  >
+                    Delete <AiFillDelete className="ml-2" />
+                  </button>
+                </div>
               )}
             </div>
           </>

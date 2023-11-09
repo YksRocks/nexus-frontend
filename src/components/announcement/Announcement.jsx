@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
-import { AiOutlineCalendar, AiFillEdit } from "react-icons/ai";
+import { AiOutlineCalendar, AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { FcHighPriority, FcLowPriority, FcMediumPriority } from "react-icons/fc";
 
 const Announcement = ({ announcement, role, onUpdate }) => {
@@ -30,7 +30,7 @@ const Announcement = ({ announcement, role, onUpdate }) => {
     };
 
     const handleUpdate = async () => {
-        
+
         if (!description.trim()) {
             toast({
                 title: "Cannot Update",
@@ -77,6 +77,39 @@ const Announcement = ({ announcement, role, onUpdate }) => {
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            const response = await axios.delete(`${backendUrl}/api/announcements/${announcement._id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                }
+            });
+
+            if (response.status === 200) {
+                const deletedAnnouncement = response.data;
+                onUpdate(deletedAnnouncement);
+                
+                toast({
+                    title: "Success",
+                    description: "Announcement deleted successfully.",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            }
+        } catch (error) {
+            toast({
+                title: "Error",
+                description: error.response?.data?.error || "There was an error deleting the announcement.",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+            console.error('Error deleting announcement:', error.response || error.message);
+        }
+    }
+
 
     return (
         <div className="border border-zinc-700 rounded-xl p-5 bg-zinc-900/10 hover:bg-zinc-800/20 hover:cursor-pointer flex justify-between items-center">
@@ -114,12 +147,20 @@ const Announcement = ({ announcement, role, onUpdate }) => {
                                 <span className="text-gray-400">{formattedDate}</span>
                             </div>
                             {role === 'admin' && (
-                                <button
-                                    onClick={handleEdit}
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
-                                >
-                                    Edit <AiFillEdit className="ml-2" />
-                                </button>
+                                <div className="flex space-x-3">
+                                    <button
+                                        onClick={handleEdit}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+                                    >
+                                        Edit <AiFillEdit className="ml-2" />
+                                    </button>
+                                    <button
+                                        onClick={handleDelete}
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+                                    >
+                                        Delete <AiFillDelete className="ml-2" />
+                                    </button>
+                                </div>
                             )}
                         </div>
                     </>
