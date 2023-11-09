@@ -102,48 +102,51 @@ const Challenges = () => {
 
   return (
     <div className="p-2 flex flex-col space-y-5">
-      {isAdding ? (
+      {userData.role === "admin" && (
         <>
-          <textarea
-            placeholder="Challenge Name"
-            onChange={(e) => setChallengeName(e.target.value)}
-            className="flex-grow h-10 min-h-[2rem] bg-zinc-700 text-white p-2 rounded"
-          />
-          <textarea
-          placeholder="Challenge Description"
-            onChange={(e) => setDescription(e.target.value)}
-            className="flex-grow h-32 min-h-[8rem] bg-zinc-700 text-white p-2 rounded"
-          />
-          <div className="flex justify-start space-x-3 mt-2">
-            <button
-              onClick={handleUpdate}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Update
-            </button>
-            <button
-              onClick={handleCancel}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Cancel
-            </button>
-          </div>
-
-        </>
-      ) : (
-        <div className="border border-zinc-700 rounded-xl p-5 bg-zinc-900/10 hover:bg-zinc-800/20 hover:cursor-pointer flex justify-between items-center">
-          <div className="flex flex-col space-y-3 w-full">
-            <div className="flex justify-between items-center">
-              <h1 className="text-lg font-bold">New Challenge</h1>
-              <button
-                onClick={handleAdd}
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
-              >
-                Add<IoAddCircle className="ml-2" />
-              </button>
+          {isAdding ? (
+            <>
+              <textarea
+                placeholder="Challenge Name"
+                onChange={(e) => setChallengeName(e.target.value)}
+                className="flex-grow h-10 min-h-[2rem] bg-zinc-700 text-white p-2 rounded"
+              />
+              <textarea
+                placeholder="Challenge Description"
+                onChange={(e) => setDescription(e.target.value)}
+                className="flex-grow h-32 min-h-[8rem] bg-zinc-700 text-white p-2 rounded"
+              />
+              <div className="flex justify-start space-x-3 mt-2">
+                <button
+                  onClick={handleUpdate}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={handleCancel}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="border border-zinc-700 rounded-xl p-5 bg-zinc-900/10 hover:bg-zinc-800/20 hover:cursor-pointer flex justify-between items-center">
+              <div className="flex flex-col space-y-3 w-full">
+                <div className="flex justify-between items-center">
+                  <h1 className="text-lg font-bold">New Challenge</h1>
+                  <button
+                    onClick={handleAdd}
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+                  >
+                    Add<IoAddCircle className="ml-2" />
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
       {challengesData.map((challenge) => (
         <Challenge
