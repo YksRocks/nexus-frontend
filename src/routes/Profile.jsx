@@ -6,6 +6,7 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { fetchUserData } from "../services/userServices";
 import { useParams } from "react-router-dom";
+import "./Profile.css";
 
 function Profile() {
   const toast = useToast();
@@ -213,26 +214,34 @@ function Profile() {
             </div>
             <div className="flex flex-col justify-center items-center">
               <div className="mx-3 justify-center items-center flex space-x-4">
-                {/* <Tag>
-                    {" "}
-                    <GiPodiumSecond className="w-5 h-5" /> 4{" "}
-                  </Tag>
-                  <Tag>
-                    {" "}
-                    <GiPodiumWinner className="w-8 h-8" /> 4{" "}
-                  </Tag>
-                  <Tag>
-                    {" "}
-                    <GiPodiumThird className="w-5 h-5" /> 4{" "}
-                  </Tag> */}
-                <h4 className="text-2xl">RANK #1</h4>
+                <Tag>
+                  {" "}
+                  <GiPodiumSecond className="w-5 h-5" /> 4{" "}
+                </Tag>
+                <Tag>
+                  {" "}
+                  <GiPodiumWinner className="w-8 h-8" /> 4{" "}
+                </Tag>
+                <Tag>
+                  {" "}
+                  <GiPodiumThird className="w-5 h-5" /> 4{" "}
+                </Tag>
+                {/* <h4 className="text-2xl">RANK #1</h4> */}
               </div>
             </div>
             <div className="w-full flex flex-col items-center justify-center mx-1">
+              <p
+                // fontWeight="bold"
+                // colorScheme="gray"
+                className="w-fit mx-2 mt-3 my-2 font-bold text-2xl"
+              >
+                {" "}
+                Bio{" "}
+              </p>
               {isEditingBio ? (
                 <div className="w-full flex flex-col justify-center items-center">
-                  <input
-                    className="w-full h-28 mt-1 shadow appearance-none border border-gray-700 hover:border-gray-400 bg-neutral-900 text-white rounded leading-tight focus:outline-none focus:shadow-outline"
+                  <textarea
+                    className="w-full p-2 px-3 h-28 mt-1 shadow appearance-none border border-gray-700 hover:border-gray-400 bg-neutral-900 text-white rounded leading-tight focus:outline-none focus:shadow-outline"
                     name="text"
                     type="text"
                     value={updatedBio}
@@ -258,16 +267,8 @@ function Profile() {
                 </div>
               ) : (
                 <div className="flex justify-center text-center items-center flex-col">
-                  <p
-                    // fontWeight="bold"
-                    // colorScheme="gray"
-                    className="w-fit mx-2 my-2 font-bold text-2xl"
-                  >
-                    {" "}
-                    Bio{" "}
-                  </p>
                   <Tag fontWeight="" colorScheme="" className="mt-4">
-                    {userData.bio}
+                    {userData.bio}.
                   </Tag>
                   <Tag
                     fontWeight="bold"
@@ -288,8 +289,8 @@ function Profile() {
           >
             <div className="w-full flex justify-between px-3 py-4">
               <div className="flex flex-col justify-between space-y-3 mx-1 w-[100%]">
-                <h1 className="font-bold text-3xl">Student Details</h1>
-                <div className="flex flex-row ">
+                <h1 className="font-bold mb-4 text-3xl">Student Details</h1>
+                <div className="flex flex-col md:flex-row ">
                   <Tag
                     //   fontWeight="bold"
                     //   colorScheme="gray"
@@ -306,6 +307,7 @@ function Profile() {
                     {userData.username}{" "}
                   </Tag>
                   <Tag
+                    className="md:ml-[35px] mt-2 md:mt-0"
                     fontWeight="bold"
                     colorScheme="gray"
                     sx={{
@@ -314,14 +316,14 @@ function Profile() {
                       border: "1px solid grey",
                       width: "100%",
                       padding: "13px",
-                      marginLeft: "35px",
+                      // marginLeft: "35px",
                     }}
                   >
                     {" "}
                     {userData.email}{" "}
                   </Tag>
                 </div>
-                <div className="flex flex-row">
+                <div className="flex flex-col md:flex-row">
                   <Tag
                     fontWeight="bold"
                     colorScheme="gray"
@@ -337,6 +339,7 @@ function Profile() {
                     {userData.libId}{" "}
                   </Tag>
                   <Tag
+                    className="md:ml-[35px] mt-2 md:mt-0"
                     fontWeight="bold"
                     colorScheme="gray"
                     sx={{
@@ -345,7 +348,6 @@ function Profile() {
                       border: "1px solid grey",
                       width: "100%",
                       padding: "13px",
-                      marginLeft: "35px",
                     }}
                   >
                     {" "}
@@ -356,25 +358,39 @@ function Profile() {
             </div>
             <div className="w-full flex flex-col  px-3 py-4">
               <h1 className="font-bold text-3xl">Coding Platforms</h1>
-              <div className="flex flex-row">
-                <div className="w-1/2 font-bold flex flex-col justify-center items-center">
+              <div className="flex mt-5 flex-col md:flex-row ">
+                <div className="w-full md:w-1/2  flex flex-col justify-center ">
                   {userData.codechefId ? (
                     <div
+                      className="md:w-[95%] w-full"
                       style={{
                         backgroundColor: "transparent",
                         color: "white",
                         border: "1px solid grey",
-                        width: "100%",
-                        padding: "13px",
+                        // width: "95%",
+                        padding: "10px",
                         // marginLeft: "35px",
-                        borderRadius: "10px",
+                        borderRadius: "5px",
+                        display: "flex",
+                        justifyContent: "space-between",
                       }}
                     >
-                      {userData.codechefId}
+                      <p>{userData.codechefId}</p>
+                      <button
+                        className="font-bold px-2"
+                        style={{
+                          backgroundColor: "#fafec1",
+                          color: "#81481a",
+                          borderRadius: "2px",
+                          fontSize: "10px",
+                        }}
+                      >
+                        CodeChef
+                      </button>
                     </div>
                   ) : (
-                    <div className="w-full flex flex-col justify-center items-center">
-                      <div className="w-full relative flex items-center">
+                    <div className="w-full flex flex-col justify-center">
+                      <div className="w-full md:!w-[95%] relative flex items-center">
                         <svg
                           type="button"
                           onClick={() => {
@@ -402,7 +418,7 @@ function Profile() {
                             color: "white",
                             border: "1px solid grey",
                             width: "100%",
-                            padding: "13px",
+                            padding: "10px",
 
                             // marginLeft: "35px",
                           }}
@@ -425,23 +441,37 @@ function Profile() {
                   )}
                 </div>
 
-                <div className="w-1/2 font-bold flex flex-col justify-center items-center">
+                <div className="md:w-1/2 w-full mt-2 md:mt-0  flex flex-col justify-center md:items-end">
                   {userData.codeforcesId ? (
                     <div
+                      className="md:w-[95%] w-full"
                       style={{
                         backgroundColor: "transparent",
                         color: "white",
                         border: "1px solid grey",
-                        width: "100%",
-                        padding: "13px",
-                        borderRadius: "10px",
+                        // width: "95%",
+                        padding: "10px",
+                        borderRadius: "5px",
+                        display: "flex",
+                        justifyContent: "space-between",
                       }}
                     >
-                      {userData.codeforcesId}
+                      <p>{userData.codeforcesId}</p>
+                      <button
+                        className="font-bold px-2"
+                        style={{
+                          backgroundColor: "#fafec1",
+                          color: "#81481a",
+                          borderRadius: "2px",
+                          fontSize: "10px",
+                        }}
+                      >
+                        CodeForces
+                      </button>
                     </div>
                   ) : (
-                    <div className="w-full flex flex-col justify-center items-center">
-                      <div className="w-full relative flex items-center">
+                    <div className="w-full flex flex-col justify-center md:items-end">
+                      <div className="w-full md:!w-[95%] relative flex items-center">
                         <svg
                           type="button"
                           onClick={() => {
@@ -467,8 +497,7 @@ function Profile() {
                             color: "white",
                             border: "1px solid grey",
                             width: "100%",
-                            padding: "13px",
-                            marginLeft: "35px",
+                            padding: "11px",
                           }}
                           type="text"
                           value={updatedCodeforcesId}
@@ -489,24 +518,38 @@ function Profile() {
                   )}
                 </div>
               </div>
-              <div className="flex flex-row">
-                <div className="w-1/2 font-bold flex flex-col justify-center items-center">
+              <div className="flex mt-2 flex-col md:flex-row">
+                <div className="md:w-1/2 w-full flex flex-col justify-center">
                   {userData.leetcodeId ? (
                     <div
+                      className="md:w-[95%] w-full"
                       style={{
                         backgroundColor: "transparent",
                         color: "white",
                         border: "1px solid grey",
-                        width: "100%",
-                        padding: "13px",
-                        borderRadius: "10px",
+                        // width: "95%",
+                        padding: "10px",
+                        borderRadius: "5px",
+                        display: "flex",
+                        justifyContent: "space-between",
                       }}
                     >
-                      {userData.leetcodeId}
+                      <p>{userData.leetcodeId}</p>
+                      <button
+                        className="font-bold px-2"
+                        style={{
+                          backgroundColor: "#fafec1",
+                          color: "#81481a",
+                          borderRadius: "2px",
+                          fontSize: "10px",
+                        }}
+                      >
+                        LeetCode
+                      </button>
                     </div>
                   ) : (
-                    <div className="w-full flex flex-col justify-center items-center ">
-                      <div className="w-full relative flex items-center ">
+                    <div className="w-full flex flex-col justify-center ">
+                      <div className="w-full md:!w-[95%] relative flex items-center ">
                         <svg
                           type="button"
                           onClick={() => {
@@ -533,7 +576,7 @@ function Profile() {
                             color: "white",
                             border: "1px solid grey",
                             width: "100%",
-                            padding: "13px",
+                            padding: "10px",
                           }}
                           value={updatedLeetcodeId}
                           placeholder="LeetCode Id"
@@ -550,23 +593,37 @@ function Profile() {
                     </div>
                   )}
                 </div>
-                <div className="w-1/2 font-bold flex flex-col justify-center items-center">
+                <div className="md:w-1/2 w-full mt-2 md:mt-0  flex flex-col justify-center md:items-end">
                   {userData.githubId ? (
                     <div
+                      className="md:w-[95%] w-full"
                       style={{
                         backgroundColor: "transparent",
                         color: "white",
                         border: "1px solid grey",
-                        width: "100%",
-                        padding: "13px",
-                        borderRadius: "10px",
+                        // width: "95%",
+                        padding: "10px",
+                        borderRadius: "5px",
+                        display: "flex",
+                        justifyContent: "space-between",
                       }}
                     >
-                      {userData.githubId}
+                      <p>{userData.githubId}</p>
+                      <button
+                        className="font-bold px-2"
+                        style={{
+                          backgroundColor: "#fafec1",
+                          color: "#81481a",
+                          borderRadius: "2px",
+                          fontSize: "10px",
+                        }}
+                      >
+                        GitHub
+                      </button>
                     </div>
                   ) : (
-                    <div className="w-full flex flex-col justify-center items-center">
-                      <div className="w-full relative flex items-center">
+                    <div className="w-full flex flex-col justify-center md:items-end">
+                      <div className="w-full md:!w-[95%] relative flex items-center ">
                         <svg
                           type="button"
                           onClick={() => {
@@ -593,8 +650,7 @@ function Profile() {
                             color: "white",
                             border: "1px solid grey",
                             width: "100%",
-                            padding: "13px",
-                            marginLeft: "35px",
+                            padding: "11px",
                           }}
                           value={updatedGithubId}
                           placeholder="GitHub Id"
