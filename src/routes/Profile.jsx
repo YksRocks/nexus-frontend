@@ -9,8 +9,7 @@ import { useParams } from "react-router-dom";
 
 function Profile() {
   const toast = useToast();
-  const backendUrl =
-    import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
+  const backendUrl = import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
   const apiKey = import.meta.env.VITE_API_KEY;
   const [userData, setUserData] = useState({});
   const [updatedCodeforcesId, setUpdatedCodeforcesId] = useState("");
@@ -20,8 +19,6 @@ function Profile() {
   const [updatedBio, setUpdatedBio] = useState("");
   const [isEditingBio, setIsEditingBio] = useState(false);
   const { libId } = useParams();
-
-  console.log(libId);
 
   useEffect(() => {
     fetchUserData().then((data) => {
@@ -46,13 +43,11 @@ function Profile() {
       showToast("warning", "The Codechef ID cannot be empty.");
       return;
     }
+
     try {
-      const response = await axios.put(
-        `${backendUrl}/api/users/${userData._id}`,
-        {
+      const response = await axios.put(`${backendUrl}/api/users/${userData._id}`,{
           codechefId: updatedCodechefId,
-        },
-        {
+        }, {
           headers: {
             Authorization: `Bearer ${apiKey}`,
           },
