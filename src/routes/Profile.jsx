@@ -6,7 +6,6 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { fetchUserData } from "../services/userServices";
 import { useParams } from "react-router-dom";
-import "./Profile.css";
 
 function Profile() {
   const toast = useToast();
@@ -195,7 +194,6 @@ function Profile() {
         <Flex className="md:flex-row flex-col" color="white">
           <Box
             flex="1"
-            // size="150px"
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -226,18 +224,10 @@ function Profile() {
                   {" "}
                   <GiPodiumThird className="w-5 h-5" /> 4{" "}
                 </Tag>
-                {/* <h4 className="text-2xl">RANK #1</h4> */}
               </div>
             </div>
             <div className="w-full flex flex-col items-center justify-center mx-1">
-              <p
-                // fontWeight="bold"
-                // colorScheme="gray"
-                className="w-fit mx-2 mt-3 my-2 font-bold text-2xl"
-              >
-                {" "}
-                Bio{" "}
-              </p>
+              <p className="w-fit mx-2 mt-3 my-2 font-bold text-2xl"> Bio </p>
               {isEditingBio ? (
                 <div className="w-full flex flex-col justify-center items-center">
                   <textarea
@@ -292,9 +282,6 @@ function Profile() {
                 <h1 className="font-bold mb-4 text-3xl">Student Details</h1>
                 <div className="flex flex-col md:flex-row ">
                   <Tag
-                    //   fontWeight="bold"
-                    //   colorScheme="gray"
-                    //   className="bg-transparent"
                     sx={{
                       backgroundColor: "transparent",
                       color: "white",
@@ -316,7 +303,6 @@ function Profile() {
                       border: "1px solid grey",
                       width: "100%",
                       padding: "13px",
-                      // marginLeft: "35px",
                     }}
                   >
                     {" "}
@@ -367,9 +353,7 @@ function Profile() {
                         backgroundColor: "transparent",
                         color: "white",
                         border: "1px solid grey",
-                        // width: "95%",
                         padding: "10px",
-                        // marginLeft: "35px",
                         borderRadius: "5px",
                         display: "flex",
                         justifyContent: "space-between",
@@ -419,23 +403,11 @@ function Profile() {
                             border: "1px solid grey",
                             width: "100%",
                             padding: "10px",
-
-                            // marginLeft: "35px",
                           }}
                           value={updatedCodechefId}
                           placeholder="CodeChef Id"
                           onChange={(e) => setUpdatedCodechefId(e.target.value)}
                         />
-                        {/* <button
-                          className="w-1/3 mt-1 py-1 bg-purple-500 hover:bg-purple-700 text-white text-xs font-bold rounded focus:outline-none focus:shadow-outline"
-                          type="button"
-                          onClick={() => {
-                            handleUpdateCodechefId();
-                            updateCodechefProfile();
-                          }}
-                        >
-                          Update
-                        </button> */}
                       </div>
                     </div>
                   )}
@@ -449,7 +421,6 @@ function Profile() {
                         backgroundColor: "transparent",
                         color: "white",
                         border: "1px solid grey",
-                        // width: "95%",
                         padding: "10px",
                         borderRadius: "5px",
                         display: "flex",
@@ -506,13 +477,6 @@ function Profile() {
                             setUpdatedCodeforcesId(e.target.value)
                           }
                         />
-                        {/* <button
-                        className="w-1/3 mt-1 py-1 bg-purple-500 hover:bg-purple-700 text-white text-xs font-bold rounded focus:outline-none focus:shadow-outline"
-                        type="button"
-                        onClick={handleUpdateCodeforcesId}
-                      >
-                        Update
-                      </button> */}
                       </div>
                     </div>
                   )}
@@ -527,7 +491,6 @@ function Profile() {
                         backgroundColor: "transparent",
                         color: "white",
                         border: "1px solid grey",
-                        // width: "95%",
                         padding: "10px",
                         borderRadius: "5px",
                         display: "flex",
@@ -582,13 +545,6 @@ function Profile() {
                           placeholder="LeetCode Id"
                           onChange={(e) => setUpdatedLeetcodeId(e.target.value)}
                         />
-                        {/* <button
-                        className="w-1/3 mt-1 py-1 bg-purple-500 hover:bg-purple-700 text-white text-xs font-bold rounded focus:outline-none focus:shadow-outline"
-                        type="button"
-                        onClick={handleUpdateLeetcodeId}
-                      >
-                        Update
-                      </button> */}
                       </div>
                     </div>
                   )}
@@ -601,7 +557,6 @@ function Profile() {
                         backgroundColor: "transparent",
                         color: "white",
                         border: "1px solid grey",
-                        // width: "95%",
                         padding: "10px",
                         borderRadius: "5px",
                         display: "flex",
@@ -656,13 +611,6 @@ function Profile() {
                           placeholder="GitHub Id"
                           onChange={(e) => setUpdatedGithubId(e.target.value)}
                         />
-                        {/* <button
-                        className="w-1/3 mt-1 py-1 bg-purple-500 hover:bg-purple-700 text-white text-xs font-bold rounded focus:outline-none focus:shadow-outline"
-                        type="button"
-                        onClick={handleUpdateGithubId}
-                      >
-                        Update
-                      </button> */}
                       </div>
                     </div>
                   )}
