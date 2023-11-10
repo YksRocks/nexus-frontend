@@ -16,7 +16,7 @@ const MobileNav = () => {
                 {navLinks.map((link) => (
                     <Link
                         key={link.href}
-                        to={link.href} // Use "to" instead of "href" for React Router
+                        to={link.href}
                         className={`flex items-center justify-center rounded bg-neutral-900/50 hover:bg-neutral-900/40 font-bold py-2 px-4`}
                     >
                         {link.icon}

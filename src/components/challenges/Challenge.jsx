@@ -1,32 +1,109 @@
 import { useState } from "react";
-import { AiFillEdit, AiOutlineCalendar } from "react-icons/ai";
+import axios from 'axios';
+import { AiFillDelete, AiFillEdit, AiOutlineCalendar } from "react-icons/ai";
 import { FaHackerrank } from "react-icons/fa";
 import { MdGroups2 } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
+import { useToast } from "@chakra-ui/react";
 
-const Challenge = ({ challenge, role }) => {
-
+const Challenge = ({ challenge, role, onUpdate }) => {
+  const toast = useToast();
+  const backendUrl = import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
+  const apiKey = import.meta.env.VITE_API_KEY;
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState(challenge.description);
-
   const updatedAt = new Date(challenge.updatedAt);
-  const formattedDate = `${updatedAt.toLocaleDateString()} ${updatedAt.toLocaleTimeString()}`;
+  const formattedDate = `${updatedAt.toLocaleDateString()}`;
 
   const handleEdit = () => {
     setIsEditing(true);
   };
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
     setIsEditing(false);
-    setDescription(challenge.description); // Reset description to initial value on cancel
+    setDescription(challenge.description);
   };
 
-  const handleUpdate = () => {
-    // Logic to update the challenge description
-    console.log('Update description:', description);
-    // You would typically make an API call here to update the database
-    setIsEditing(false);
+  const handleUpdate = async () => {
+
+    if (!description.trim()) {
+      toast({
+        title: "Cannot Update",
+        description: "The announcement description cannot be empty.",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    try {
+      const response = await axios.put(`${backendUrl}/api/contests/${challenge._id}`, {
+        description: description
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        }
+      });
+      if (response.status === 200) {
+        const updatedChallenge = response.data;
+        setDescription(updatedChallenge.description);
+        onUpdate(updatedChallenge);
+
+        toast({
+          title: "Success",
+          description: "Challenge updated successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        setIsEditing(false);
+      }
+
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`${backendUrl}/api/contests/${challenge._id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        }
+      });
+
+      if (response.status === 200) {
+        const deletedChallenge = response.data;
+        onUpdate(deletedChallenge);
+
+        toast({
+          title: "Success",
+          description: "Challenge deleted successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  }
 
   return (
     <div className="border border-zinc-700 rounded-xl p-5 bg-zinc-900/10 hover:bg-zinc-800/20 hover:cursor-pointer flex justify-between items-center space-x-5">
@@ -40,13 +117,13 @@ const Challenge = ({ challenge, role }) => {
         )}
         <h2 className="text-lg font-semibold">{challenge.name}</h2>
         {isEditing ? (
-          <div className="flex flex-col"> {/* Ensure the parent is flex and full width */}
+          <div className="flex flex-col">
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="flex-grow h-32 min-h-[8rem] bg-zinc-700 text-white p-2 rounded"
             />
-            <div className="flex justify-start space-x-3 mt-2"> {/* Added mt-2 for spacing */}
+            <div className="flex justify-start space-x-3 mt-2">
               <button
                 onClick={handleUpdate}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -77,12 +154,20 @@ const Challenge = ({ challenge, role }) => {
                 </button>
               )}
               {role === 'admin' && (
-                <button
-                  onClick={handleEdit}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
-                >
-                  Edit <AiFillEdit className="ml-2" />
-                </button>
+                <div className="flex space-x-3">
+                  <button
+                    onClick={handleEdit}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                  >
+                    Edit <AiFillEdit className="ml-2" />
+                  </button>
+                  <button
+                    onClick={handleDelete}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                  >
+                    Delete <AiFillDelete className="ml-2" />
+                  </button>
+                </div>
               )}
             </div>
           </>
