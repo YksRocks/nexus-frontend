@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+src/routes/Profile1.jsx
+src/routes/Profile2.jsx
 
 # Editor directories and files
 .vscode/*
