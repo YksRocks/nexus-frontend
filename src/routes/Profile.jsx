@@ -45,13 +45,13 @@ function Profile() {
     }
 
     try {
-      const response = await axios.put(`${backendUrl}/api/users/${userData._id}`,{
-          codechefId: updatedCodechefId,
-        }, {
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
+      const response = await axios.put(`${backendUrl}/api/users/${userData._id}`, {
+        codechefId: updatedCodechefId,
+      }, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+        },
+      }
       );
 
       if (response.status === 200) {
@@ -381,7 +381,7 @@ function Profile() {
                     >
                       <p>{userData.codechefId}</p>
                       <button
-                        className="font-bold px-2"
+                        className="font-bold px-2 cursor-auto"
                         style={{
                           backgroundColor: "#fafec1",
                           color: "#81481a",
@@ -449,7 +449,7 @@ function Profile() {
                     >
                       <p>{userData.codeforcesId}</p>
                       <button
-                        className="font-bold px-2"
+                        className="font-bold px-2 cursor-auto"
                         style={{
                           backgroundColor: "#fafec1",
                           color: "#81481a",
@@ -519,7 +519,7 @@ function Profile() {
                     >
                       <p>{userData.leetcodeId}</p>
                       <button
-                        className="font-bold px-2"
+                        className="font-bold px-2 cursor-auto"
                         style={{
                           backgroundColor: "#fafec1",
                           color: "#81481a",
@@ -585,7 +585,7 @@ function Profile() {
                     >
                       <p>{userData.githubId}</p>
                       <button
-                        className="font-bold px-2"
+                        className="font-bold px-2 cursor-auto"
                         style={{
                           backgroundColor: "#fafec1",
                           color: "#81481a",
