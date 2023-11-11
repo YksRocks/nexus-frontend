@@ -81,10 +81,17 @@ function Profile() {
       console.error("Error updating Codechef ID", error);
       showToast("error", "Error updating Codechef ID");
     }
-    updateCodechefProfile();
   };
 
   const updateCodechefProfile = async () => {
+
+    const isValid = await isValidCodechefId(updatedCodechefId);
+
+    if (!isValid) {
+      showToast("error", "The Codechef ID is invalid.");
+      return;
+    }
+
     try {
       const response = await axios.put(
         `${backendUrl}/api/contests/codechef/${userData._id}`,
@@ -142,16 +149,16 @@ function Profile() {
     }
   };
 
-  const isValidLeetcodeId = async (id) => {
+  // const isValidLeetcodeId = async (id) => {
 
-    try {
-      const response = await axios.get(`https://leetcode.com/${id}/`);
+  //   try {
+  //     const response = await axios.get(`https://leetcode.com/${id}/`);
 
-      return response.status === 200;
-    } catch (error) {
-      return false;
-    }
-  };
+  //     return response.status === 200;
+  //   } catch (error) {
+  //     return false;
+  //   }
+  // };
 
   const handleUpdateLeetcodeId = async () => {
     if (!updatedLeetcodeId.trim()) {
@@ -159,12 +166,12 @@ function Profile() {
       return;
     }
 
-    const isValid = await isValidLeetcodeId(updatedLeetcodeId);
+    // const isValid = await isValidLeetcodeId(updatedLeetcodeId);
 
-    if (!isValid) {
-      showToast("error", "The Leetcode ID is invalid.");
-      return;
-    }
+    // if (!isValid) {
+    //   showToast("error", "The Leetcode ID is invalid.");
+    //   return;
+    // }
 
     try {
       const response = await axios.put(
@@ -189,15 +196,15 @@ function Profile() {
     }
   };
 
-  const isValidGithubId = async (id) => {
-    try {
-      const response = await axios.get(`https://www.github.com/${id}`);
+  // const isValidGithubId = async (id) => {
+  //   try {
+  //     const response = await axios.get(`https://www.github.com/${id}`);
 
-      return response.status === 200;
-    } catch (error) {
-      return false;
-    }
-  };
+  //     return response.status === 200;
+  //   } catch (error) {
+  //     return false;
+  //   }
+  // };
 
 
   const handleUpdateGithubId = async () => {
@@ -206,12 +213,12 @@ function Profile() {
       return;
     }
 
-    const isValid = await isValidGithubId(updatedGithubId);
+    // const isValid = await isValidGithubId(updatedGithubId);
 
-    if (!isValid) {
-      showToast("error", "The Github ID is invalid.");
-      return;
-    }
+    // if (!isValid) {
+    //   showToast("error", "The Github ID is invalid.");
+    //   return;
+    // }
 
     try {
       const response = await axios.put(
