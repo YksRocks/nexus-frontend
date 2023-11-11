@@ -25,8 +25,6 @@ function App() {
     }, []);
   }, []);
 
-  console.log(userData.libId); // Place this line inside the useEffect or elsewhere as needed
-
   return (
     <div className="text-white">
       <BrowserRouter>

@@ -1,11 +1,10 @@
-import { Avatar, Badge, Box, Flex, Image, Tag } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Image, Tag } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { GiPodiumSecond, GiPodiumWinner, GiPodiumThird } from "react-icons/gi";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { fetchUserData } from "../services/userServices";
-import { useParams } from "react-router-dom";
 
 function Profile() {
   const toast = useToast();
@@ -18,7 +17,6 @@ function Profile() {
   const [updatedGithubId, setUpdatedGithubId] = useState("");
   const [updatedBio, setUpdatedBio] = useState("");
   const [isEditingBio, setIsEditingBio] = useState(false);
-  const { libId } = useParams();
 
   useEffect(() => {
     fetchUserData().then((data) => {
@@ -38,9 +36,30 @@ function Profile() {
     });
   };
 
+  const isValidCodechefId = async (id) => {
+    try {
+      const response = await axios.get(`${backendUrl}/api/contests/codechef/${id}`, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+        },
+      }
+      );
+      return response.status === 200;
+    } catch (error) {
+      return false;
+    }
+  };
+
   const handleUpdateCodechefId = async () => {
     if (!updatedCodechefId.trim()) {
       showToast("warning", "The Codechef ID cannot be empty.");
+      return;
+    }
+
+    const isValid = await isValidCodechefId(updatedCodechefId);
+
+    if (!isValid) {
+      showToast("error", "The Codechef ID is invalid.");
       return;
     }
 
@@ -123,11 +142,30 @@ function Profile() {
     }
   };
 
+  const isValidLeetcodeId = async (id) => {
+
+    try {
+      const response = await axios.get(`https://leetcode.com/${id}/`);
+
+      return response.status === 200;
+    } catch (error) {
+      return false;
+    }
+  };
+
   const handleUpdateLeetcodeId = async () => {
     if (!updatedLeetcodeId.trim()) {
       showToast("warning", "The Leetcode ID cannot be empty.");
       return;
     }
+
+    const isValid = await isValidLeetcodeId(updatedLeetcodeId);
+
+    if (!isValid) {
+      showToast("error", "The Leetcode ID is invalid.");
+      return;
+    }
+
     try {
       const response = await axios.put(
         `${backendUrl}/api/users/${userData._id}`,
@@ -151,11 +189,30 @@ function Profile() {
     }
   };
 
+  const isValidGithubId = async (id) => {
+    try {
+      const response = await axios.get(`https://www.github.com/${id}`);
+
+      return response.status === 200;
+    } catch (error) {
+      return false;
+    }
+  };
+
+
   const handleUpdateGithubId = async () => {
     if (!updatedGithubId.trim()) {
       showToast("warning", "The Github ID cannot be empty.");
       return;
     }
+
+    const isValid = await isValidGithubId(updatedGithubId);
+
+    if (!isValid) {
+      showToast("error", "The Github ID is invalid.");
+      return;
+    }
+
     try {
       const response = await axios.put(
         `${backendUrl}/api/users/${userData._id}`,
