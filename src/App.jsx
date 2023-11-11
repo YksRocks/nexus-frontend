@@ -8,6 +8,7 @@ import Announcements from './routes/Announcements';
 import Leaderboard from './routes/Leaderboard';
 import Profile from './routes/Profile';
 import { fetchUserData } from './services/userServices';
+import NotFound from './routes/NotFound';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -67,11 +68,13 @@ function App() {
                   </Layout>
                 }
               />
+              <Route path="*" element={<NotFound />} />
             </>
           ) : (
             <>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="*" element={<NotFound />} />
             </>
           )}
         </Routes>
