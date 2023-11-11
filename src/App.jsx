@@ -72,10 +72,9 @@ function App() {
             </>
           ) : (
             <>
-              <Route path='/' element={<Navigate to='/login' />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="*" element={<Navigate to='/login' />} />
             </>
           )}
         </Routes>
