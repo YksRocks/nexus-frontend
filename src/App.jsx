@@ -9,22 +9,29 @@ import Leaderboard from './routes/Leaderboard';
 import Profile from './routes/Profile';
 import { fetchUserData } from './services/userServices';
 import NotFound from './routes/NotFound';
+import Loading from './routes/Loading';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(true); // Added loading state
 
   useEffect(() => {
-    fetchUserData().then((data) => {
-      if (data) {
-        setUserData(data);
-        setLoggedIn(true);
-      } else {
-        setUserData({});
-        setLoggedIn(false);
-      }
-    }, []);
+    fetchUserData()
+      .then((data) => {
+        if (data) {
+          setLoggedIn(true);
+        }
+      })
+      .finally(() => {
+        // Authentication check is complete, set loading to false
+        setLoading(false);
+      });
   }, []);
+
+  if (loading) {
+    // Return a loading indicator or some other UI
+    return <Loading />
+  }
 
   return (
     <div className="text-white">
@@ -32,10 +39,7 @@ function App() {
         <Routes>
           {loggedIn ? (
             <>
-              <Route
-                path="/"
-                element={<Navigate to="/challenges" />}
-              />
+              <Route path="/" element={<Navigate to="/challenges" />} />
               <Route
                 path="/challenges"
                 element={
@@ -68,13 +72,15 @@ function App() {
                   </Layout>
                 }
               />
-              <Route path="*" element={<NotFound />} />
             </>
           ) : (
             <>
+              <Route
+                path="/"
+                element={<Navigate to="/login" />}
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="*" element={<NotFound />} />
             </>
           )}
         </Routes>
