@@ -1,8 +1,20 @@
-// StudentDetailsSection.js
-import { Flex } from "@chakra-ui/react";
 import StudentDetails from "./StudentDetails";
+import { fetchUserData } from '../../../services/userServices';
+import { useEffect, useState } from "react";
 
-function StudentDetailsSection({ userData }) {
+
+function StudentDetailsSection() {
+
+    const [userData, setUserData] = useState({});
+
+    useEffect(() => {
+        fetchUserData().then((data) => {
+            if (data) {
+                setUserData(data);
+            }
+        });
+    }, []);
+
     return (
         <div className="w-full px-3 py-4 flex flex-col justify-between space-y-3 mx-1">
             <h1 className="font-bold mb-4 text-3xl">Student Details</h1>
