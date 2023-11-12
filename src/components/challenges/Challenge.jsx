@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
-import { AiFillDelete, AiFillEdit, AiOutlineCalendar } from "react-icons/ai";
+import { AiFillDelete, AiFillEdit, AiOutlineArrowRight, AiOutlineCalendar } from "react-icons/ai";
 import { FaHackerrank } from "react-icons/fa";
 import { MdGroups2 } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
@@ -149,8 +149,8 @@ const Challenge = ({ challenge, role, onUpdate }) => {
                 <span className="text-gray-400">{formattedDate}</span>
               </div>
               {role !== 'admin' && (
-                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                  Enroll
+                <button className="flex items-center bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
+                  Enroll <AiOutlineArrowRight className="ml-2" />
                 </button>
               )}
               {role === 'admin' && (
