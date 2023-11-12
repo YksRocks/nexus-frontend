@@ -366,12 +366,15 @@ function Profile() {
                 <h1 className="font-bold mb-4 text-3xl">Student Details</h1>
                 <div className="flex flex-col md:flex-row ">
                   <Tag
+                    fontWeight="bold"
+                    colorScheme="gray"
                     sx={{
                       backgroundColor: "transparent",
                       color: "white",
                       border: "1px solid grey",
                       width: "100%",
                       padding: "13px",
+                      overflow: "auto",
                     }}
                   >
                     {" "}
@@ -387,6 +390,7 @@ function Profile() {
                       border: "1px solid grey",
                       width: "100%",
                       padding: "13px",
+                      overflow: "auto",
                     }}
                   >
                     {" "}
@@ -403,6 +407,7 @@ function Profile() {
                       border: "1px solid grey",
                       width: "100%",
                       padding: "13px",
+                      overflow: "auto",
                     }}
                   >
                     {" "}
@@ -418,6 +423,7 @@ function Profile() {
                       border: "1px solid grey",
                       width: "100%",
                       padding: "13px",
+                      overflow: "auto",
                     }}
                   >
                     {" "}
