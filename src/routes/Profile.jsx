@@ -275,7 +275,7 @@ function Profile() {
   return (
     <>
       <div>
-        <Flex className="md:flex-row flex-col" color="white">
+        <Flex className="md:flex-row flex-col mb-10" color="white">
           <Box
             flex="1"
             sx={{
