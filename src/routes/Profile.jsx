@@ -5,6 +5,7 @@ import { GiPodiumSecond, GiPodiumWinner, GiPodiumThird } from "react-icons/gi";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { fetchUserData } from "../services/userServices";
+import StudentDetailsSection from "../components/profile/studentDetails/StudentDetailsSection"
 
 function Profile() {
   const toast = useToast();
@@ -362,75 +363,7 @@ function Profile() {
             className="flex space-y-3 flex-col justify-center items-start"
           >
             <div className="w-full flex justify-between px-3 py-4">
-              <div className="flex flex-col justify-between space-y-3 mx-1 w-[100%]">
-                <h1 className="font-bold mb-4 text-3xl">Student Details</h1>
-                <div className="flex flex-col md:flex-row ">
-                  <Tag
-                    fontWeight="bold"
-                    colorScheme="gray"
-                    sx={{
-                      backgroundColor: "transparent",
-                      color: "white",
-                      border: "1px solid grey",
-                      width: "100%",
-                      padding: "13px",
-                      overflow: "auto",
-                    }}
-                  >
-                    {" "}
-                    {userData.username}{" "}
-                  </Tag>
-                  <Tag
-                    className="md:ml-[35px] mt-2 md:mt-0"
-                    fontWeight="bold"
-                    colorScheme="gray"
-                    sx={{
-                      backgroundColor: "transparent",
-                      color: "white",
-                      border: "1px solid grey",
-                      width: "100%",
-                      padding: "13px",
-                      overflow: "auto",
-                    }}
-                  >
-                    {" "}
-                    {userData.email}{" "}
-                  </Tag>
-                </div>
-                <div className="flex flex-col md:flex-row">
-                  <Tag
-                    fontWeight="bold"
-                    colorScheme="gray"
-                    sx={{
-                      backgroundColor: "transparent",
-                      color: "white",
-                      border: "1px solid grey",
-                      width: "100%",
-                      padding: "13px",
-                      overflow: "auto",
-                    }}
-                  >
-                    {" "}
-                    {userData.libId}{" "}
-                  </Tag>
-                  <Tag
-                    className="md:ml-[35px] mt-2 md:mt-0"
-                    fontWeight="bold"
-                    colorScheme="gray"
-                    sx={{
-                      backgroundColor: "transparent",
-                      color: "white",
-                      border: "1px solid grey",
-                      width: "100%",
-                      padding: "13px",
-                      overflow: "auto",
-                    }}
-                  >
-                    {" "}
-                    {userData.branch}{" "}
-                  </Tag>
-                </div>
-              </div>
+              <StudentDetailsSection userData={userData} />
             </div>
             <div className="w-full flex flex-col  px-3 py-4">
               <h1 className="font-bold text-3xl">Coding Platforms</h1>
