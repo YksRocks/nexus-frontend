@@ -8,7 +8,8 @@ import { fetchUserData } from "../services/userServices";
 
 function Profile() {
   const toast = useToast();
-  const backendUrl = import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
+  const backendUrl =
+    import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
   const apiKey = import.meta.env.VITE_API_KEY;
   const [userData, setUserData] = useState({});
   const [updatedCodeforcesId, setUpdatedCodeforcesId] = useState("");
@@ -38,11 +39,13 @@ function Profile() {
 
   const isValidCodechefId = async (id) => {
     try {
-      const response = await axios.get(`${backendUrl}/api/contests/codechef/${id}`, {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
-      }
+      const response = await axios.get(
+        `${backendUrl}/api/contests/codechef/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
       );
       return response.status === 200;
     } catch (error) {
@@ -64,13 +67,16 @@ function Profile() {
     }
 
     try {
-      const response = await axios.put(`${backendUrl}/api/users/${userData._id}`, {
-        codechefId: updatedCodechefId,
-      }, {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
+      const response = await axios.put(
+        `${backendUrl}/api/users/${userData._id}`,
+        {
+          codechefId: updatedCodechefId,
         },
-      }
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
       );
 
       if (response.status === 200) {
@@ -84,7 +90,6 @@ function Profile() {
   };
 
   const updateCodechefProfile = async () => {
-
     const isValid = await isValidCodechefId(updatedCodechefId);
 
     if (!isValid) {
@@ -205,7 +210,6 @@ function Profile() {
   //     return false;
   //   }
   // };
-
 
   const handleUpdateGithubId = async () => {
     if (!updatedGithubId.trim()) {
@@ -633,7 +637,7 @@ function Profile() {
                     </div>
                   )}
                 </div>
-                <div className="md:w-1/2 w-full mt-2 md:mt-0  flex flex-col justify-center md:items-end">
+                <div className="md:w-1/2 !mb-10 md:!mb-0 w-full mt-2 md:mt-0  flex flex-col justify-center md:items-end">
                   {userData.githubId ? (
                     <div
                       className="md:w-[95%] w-full"
