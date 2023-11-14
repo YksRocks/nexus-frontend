@@ -21,7 +21,7 @@ const CodeChefLeaderboard = () => {
                     <Th>Name</Th>
                     <Th>Branch</Th>
                     <Th>codechef Id</Th>
-                    <Th isNumeric>Rank</Th>
+                    <Th isNumeric>Contest Rank</Th>
                     <Th isNumeric>Roll No</Th>
                   </Tr>
                 </Thead>

@@ -154,6 +154,7 @@ const Challenges = () => {
           challenge={challenge}
           role={userData.role}
           onUpdate={handleChallengeUpdate}
+          userData={userData}
         />
       ))}
     </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import { AiFillDelete, AiFillEdit, AiOutlineArrowRight, AiOutlineCalendar } from "react-icons/ai";
 import { FaHackerrank } from "react-icons/fa";
@@ -6,14 +6,43 @@ import { MdGroups2 } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
 import { useToast } from "@chakra-ui/react";
 
-const Challenge = ({ challenge, role, onUpdate }) => {
+const Challenge = ({ challenge, role, onUpdate, userData }) => {
   const toast = useToast();
   const backendUrl = import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
   const apiKey = import.meta.env.VITE_API_KEY;
   const [isEditing, setIsEditing] = useState(false);
   const [description, setDescription] = useState(challenge.description);
+  const [isCodechefEnrolled, setIsCodechefEnrolled] = useState(false);
+  const [isHackerRankEnrolled, setIsHackerRankEnrolled] = useState(false);
   const updatedAt = new Date(challenge.updatedAt);
   const formattedDate = `${updatedAt.toLocaleDateString()}`;
+
+  useEffect(() => {
+    const checkCodechefEnrollmentStatus = async () => {
+      try {
+        const response = await axios.get(
+          `${backendUrl}/api/contests/codechef/getuser/${userData._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${apiKey}`
+            }
+          }
+        );
+
+        if (response.status === 200) {
+          const ResponseData = response.data;
+          const isEnrolled = ResponseData.data.isEnrolled;
+          setIsCodechefEnrolled(isEnrolled);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (userData) {
+      checkCodechefEnrollmentStatus();
+    }
+  }, [userData, challenge.name]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -105,6 +134,45 @@ const Challenge = ({ challenge, role, onUpdate }) => {
     }
   }
 
+  const handleCodechefEnroll = async () => {
+
+    if (challenge.name === 'CodeChef') {
+      try {
+        const response = await axios.put(
+          `${backendUrl}/api/contests/codechef/enroll/${userData._id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${apiKey}`
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          setIsCodechefEnrolled(true);
+          toast({
+            title: "Success",
+            description: "Challenge enrolled successfully",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        toast({
+          title: "Error",
+          description: "Something went wrong",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } else if (challenge.name === 'HackerRank') {
+      console.log('HackerRank');
+    }
+  }
+
   return (
     <div className="border border-zinc-700 rounded-xl p-5 bg-zinc-900/10 hover:bg-zinc-800/20 hover:cursor-pointer flex justify-between items-center space-x-5">
       <div className="w-full flex flex-col space-y-3">
@@ -149,9 +217,24 @@ const Challenge = ({ challenge, role, onUpdate }) => {
                 <span className="text-gray-400">{formattedDate}</span>
               </div>
               {role !== 'admin' && (
-                <button className="flex items-center bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
-                  Enroll <AiOutlineArrowRight className="ml-2" />
-                </button>
+                <>
+                  {challenge.name === 'CodeChef' && (
+                    <button
+                      onClick={handleCodechefEnroll}
+                      className="flex items-center bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+                      disabled={isCodechefEnrolled}
+                    >
+                      {isCodechefEnrolled ? 'Enrolled' : 'Enroll'} <AiOutlineArrowRight className="ml-2" />
+                    </button>
+                  )}
+                  {challenge.name === 'HackerRank' && (
+                    <button
+                      className="flex items-center bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                      {isHackerRankEnrolled ? 'Enrolled' : 'Enroll'} <AiOutlineArrowRight className="ml-2" />
+                    </button>
+                  )}
+                </>
               )}
               {role === 'admin' && (
                 <div className="flex space-x-3">
@@ -171,6 +254,7 @@ const Challenge = ({ challenge, role, onUpdate }) => {
               )}
             </div>
           </>
+
         )}
       </div>
     </div>
