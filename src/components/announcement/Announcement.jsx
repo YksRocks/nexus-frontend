@@ -126,13 +126,13 @@ const Announcement = ({ announcement, role, onUpdate }) => {
                         <div className="flex justify-start space-x-3 mt-2">
                             <button
                                 onClick={handleUpdate}
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
                             >
                                 Update
                             </button>
                             <button
                                 onClick={handleCancel}
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                className="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                             >
                                 Cancel
                             </button>
@@ -150,13 +150,13 @@ const Announcement = ({ announcement, role, onUpdate }) => {
                                 <div className="flex space-x-3">
                                     <button
                                         onClick={handleEdit}
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+                                        className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
                                     >
                                         Edit <AiFillEdit className="ml-2" />
                                     </button>
                                     <button
                                         onClick={handleDelete}
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+                                        className="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
                                     >
                                         Delete <AiFillDelete className="ml-2" />
                                     </button>
