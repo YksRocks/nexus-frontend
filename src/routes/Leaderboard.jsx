@@ -30,6 +30,11 @@ const Leaderboard = () => {
         });
     }, []);
 
+    const handleGenerateStarterResult = () => {
+        // console.log("Generating Starter Result");
+        
+    }
+
     return (
         <div className="flex flex-col justify-around space-y-5">
             {challengesData.map((challenge, index) => (
@@ -39,26 +44,29 @@ const Leaderboard = () => {
                         <h2 className="text-lg font-semibold text-gray-400 ml-2">{challenge.name}</h2>
                     </div>
                     <div className="flex space-x-3">
-                        {userData.role === "admin" && (
-                            <Button
-                                // isLoading
-                                loadingText='Loading'
-                                colorScheme='gray'
-                                spinnerPlacement='start'
-                            >
-                                Generate Result
-                                <GrResume className="ml-2" />
-                            </Button>
-                        )
-
-                        }
-                        <Link
-                            to={`/leaderboard/${challenge.name.toLowerCase().split(' ')[0]}`}
-                            className="flex justify-end items-center bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                            View Results
-                            <AiOutlineArrowRight className="ml-2" />
-                        </Link>
+                        {challenge.platform.toLowerCase().split(' ')[0] === "codechef" && (
+                            <>
+                                {userData.role === "admin" && (
+                                    <Button
+                                        // isLoading
+                                        loadingText='Loading'
+                                        colorScheme='gray'
+                                        spinnerPlacement='start'
+                                        onClick={handleGenerateStarterResult}
+                                    >
+                                        Generate Result
+                                        <GrResume className="ml-2" />
+                                    </Button>
+                                )}
+                                <Link
+                                    to={`/leaderboard/${challenge.name.toLowerCase().split(' ')[0]}`}
+                                    className="flex justify-end items-center bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+                                >
+                                    View Results
+                                    <AiOutlineArrowRight className="ml-2" />
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             ))}
