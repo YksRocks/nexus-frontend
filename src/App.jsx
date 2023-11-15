@@ -10,6 +10,7 @@ import Profile from './routes/Profile';
 import { fetchUserData } from './services/userServices';
 import NotFound from './routes/NotFound';
 import Loading from './routes/Loading';
+import CodeChefLeaderboard from './components/leaderboard/CodeChefLeaderboard';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -72,6 +73,15 @@ function App() {
                   </Layout>
                 }
               />
+              {/* <Route
+                path='/leaderboard/starters'
+                element={
+                  <Layout>
+                    <CodeChefLeaderboard />
+                  </Layout>
+                }
+              /> */}
+              <Route path="*" element={<NotFound />} />
             </>
           ) : (
             <>
@@ -81,6 +91,7 @@ function App() {
               />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="*" element={<NotFound />} />
             </>
           )}
         </Routes>
