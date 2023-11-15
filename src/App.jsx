@@ -74,7 +74,7 @@ function App() {
                 }
               />
               <Route
-                path='/leaderboard/codechef'
+                path='/leaderboard/starters'
                 element={
                   <Layout>
                     <CodeChefLeaderboard />

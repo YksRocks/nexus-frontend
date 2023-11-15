@@ -11,6 +11,7 @@ const Challenge = ({ challenge, role, onUpdate, userData }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
   const apiKey = import.meta.env.VITE_API_KEY;
   const [isEditing, setIsEditing] = useState(false);
+  const [challengeName, setChallengeName] = useState(challenge.name);
   const [description, setDescription] = useState(challenge.description);
   const [isCodechefEnrolled, setIsCodechefEnrolled] = useState(false);
   const [isHackerRankEnrolled, setIsHackerRankEnrolled] = useState(false);
@@ -68,6 +69,7 @@ const Challenge = ({ challenge, role, onUpdate, userData }) => {
 
     try {
       const response = await axios.put(`${backendUrl}/api/contests/${challenge._id}`, {
+        name: challengeName,
         description: description
       }, {
         headers: {
@@ -176,16 +178,21 @@ const Challenge = ({ challenge, role, onUpdate, userData }) => {
   return (
     <div className="border border-zinc-700 rounded-xl p-5 bg-zinc-900/10 hover:bg-zinc-800/20 hover:cursor-pointer flex justify-between items-center space-x-5">
       <div className="w-full flex flex-col space-y-3">
-        {challenge.name === "CodeChef" ? (
+        {challenge.platform === "CodeChef" ? (
           <SiCodechef className="text-6xl" />
-        ) : challenge.name === "HackerRank" ? (
+        ) : challenge.platform === "HackerRank" ? (
           <FaHackerrank className="text-6xl" />
         ) : (
           <div>Default Logo</div>
         )}
-        <h2 className="text-lg font-semibold">{challenge.name}</h2>
         {isEditing ? (
-          <div className="flex flex-col">
+          <div className="flex flex-col space-y-3">
+            <textarea
+            value={challengeName}
+              onChange={(e) => setChallengeName(e.target.value)}
+              className="flex-grow h-10 min-h-[2rem] bg-zinc-700 text-white p-2 rounded"
+            />
+
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -194,13 +201,13 @@ const Challenge = ({ challenge, role, onUpdate, userData }) => {
             <div className="flex justify-start space-x-3 mt-2">
               <button
                 onClick={handleUpdate}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
               >
                 Update
               </button>
               <button
                 onClick={handleCancel}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               >
                 Cancel
               </button>
@@ -208,6 +215,7 @@ const Challenge = ({ challenge, role, onUpdate, userData }) => {
           </div>
         ) : (
           <>
+            <h2 className="text-lg font-semibold">{challenge.name}</h2>
             <p>{challenge.description}</p>
             <div className="flex justify-between">
               <div className="flex items-center space-x-2 mt-2">
@@ -218,7 +226,7 @@ const Challenge = ({ challenge, role, onUpdate, userData }) => {
               </div>
               {role !== 'admin' && (
                 <>
-                  {challenge.name === 'CodeChef' && (
+                  {challenge.platform === 'CodeChef' && (
                     <button
                       onClick={handleCodechefEnroll}
                       className="flex items-center bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
@@ -227,7 +235,7 @@ const Challenge = ({ challenge, role, onUpdate, userData }) => {
                       {isCodechefEnrolled ? 'Enrolled' : 'Enroll'} <AiOutlineArrowRight className="ml-2" />
                     </button>
                   )}
-                  {challenge.name === 'HackerRank' && (
+                  {challenge.platform === 'HackerRank' && (
                     <button
                       className="flex items-center bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
                     >
@@ -240,13 +248,13 @@ const Challenge = ({ challenge, role, onUpdate, userData }) => {
                 <div className="flex space-x-3">
                   <button
                     onClick={handleEdit}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                    className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded flex items-center"
                   >
                     Edit <AiFillEdit className="ml-2" />
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                    className="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center"
                   >
                     Delete <AiFillDelete className="ml-2" />
                   </button>
