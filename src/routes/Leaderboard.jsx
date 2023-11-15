@@ -6,12 +6,17 @@ import { useEffect, useState } from "react";
 import { fetchChallengesData } from "../services/challengeServices";
 import { Button } from "@chakra-ui/react";
 import { fetchUserData } from "../services/userServices";
+import axios from "axios";
+import { useToast } from "@chakra-ui/react";
 
 
 const Leaderboard = () => {
-
+    const toast = useToast();
+    const backendUrl = import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
+    const apiKey = import.meta.env.VITE_API_KEY;
     const [challengesData, setChallengesData] = useState([]);
     const [userData, setUserData] = useState({});
+    const [isGeneratingResult, setIsGeneratingResult] = useState(false);
 
     useEffect(() => {
         fetchUserData().then((data) => {
@@ -30,10 +35,51 @@ const Leaderboard = () => {
         });
     }, []);
 
-    const handleGenerateStarterResult = () => {
-        // console.log("Generating Starter Result");
-        
-    }
+    const handleGenerateStarterResult = async () => {
+        setIsGeneratingResult(true);
+        const contestName = challengesData[0].name;
+
+        try {
+            const res = await axios.get(`${backendUrl}/api/contests/codechef/generate/allwinners/${contestName}`, {
+                headers: {
+                    Authorization: `Bearer ${apiKey}`,
+                },
+            });
+
+            if (res.status === 200) {
+                console.log(res);
+                console.log("Result Generated");
+                toast({
+                    title: "Result Generated",
+                    description: "Result generated successfully",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            } else {
+                console.error("Failed to generate result. Unexpected status:", res.status);
+                toast({
+                    title: "Error",
+                    description: "Failed to generate result",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            toast({
+                title: "Error",
+                description: "Error generating result",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
+        } finally {
+            setIsGeneratingResult(false);
+        }
+    };
+
 
     return (
         <div className="flex flex-col justify-around space-y-5">
@@ -48,8 +94,8 @@ const Leaderboard = () => {
                             <>
                                 {userData.role === "admin" && (
                                     <Button
-                                        // isLoading
-                                        loadingText='Loading'
+                                        isLoading={isGeneratingResult}
+                                        loadingText='Generating Result'
                                         colorScheme='gray'
                                         spinnerPlacement='start'
                                         onClick={handleGenerateStarterResult}

@@ -73,14 +73,14 @@ function App() {
                   </Layout>
                 }
               />
-              <Route
+              {/* <Route
                 path='/leaderboard/starters'
                 element={
                   <Layout>
                     <CodeChefLeaderboard />
                   </Layout>
                 }
-              />
+              /> */}
               <Route path="*" element={<NotFound />} />
             </>
           ) : (
