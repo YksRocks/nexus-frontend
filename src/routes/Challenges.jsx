@@ -13,6 +13,7 @@ const Challenges = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [description, setDescription] = useState("");
   const [challengeName, setChallengeName] = useState("");
+  const [platformName, setPlatformName] = useState("");
   const backendUrl = import.meta.env.VITE_BACKEND_URI || "http://localhost:5001";
   const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -50,7 +51,7 @@ const Challenges = () => {
   }
 
   const handleUpdate = async () => {
-    if (!description.trim() && !challengeName.trim()) {
+    if (!description.trim() && !challengeName.trim() && !platformName.trim()) {
       toast({
         title: "Cannot Add",
         description: "The challenge description cannot be empty.",
@@ -64,6 +65,7 @@ const Challenges = () => {
     try {
       const response = await axios.post(`${backendUrl}/api/contests`, {
         description: description,
+        platform: platformName,
         name: challengeName
       }, {
         headers: {
@@ -77,6 +79,7 @@ const Challenges = () => {
         setIsAdding(false);
         setDescription("");
         setChallengeName("");
+        setPlatformName("");
       }
 
       toast({
@@ -107,6 +110,11 @@ const Challenges = () => {
           {isAdding ? (
             <>
               <textarea
+                placeholder="Platform Name"
+                onChange={(e) => setPlatformName(e.target.value)}
+                className="flex-grow h-10 min-h-[2rem] bg-zinc-700 text-white p-2 rounded"
+              />
+              <textarea
                 placeholder="Challenge Name"
                 onChange={(e) => setChallengeName(e.target.value)}
                 className="flex-grow h-10 min-h-[2rem] bg-zinc-700 text-white p-2 rounded"
@@ -119,13 +127,13 @@ const Challenges = () => {
               <div className="flex justify-start space-x-3 mt-2">
                 <button
                   onClick={handleUpdate}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Update
                 </button>
                 <button
                   onClick={handleCancel}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Cancel
                 </button>
@@ -138,7 +146,7 @@ const Challenges = () => {
                   <h1 className="text-lg font-bold">New Challenge</h1>
                   <button
                     onClick={handleAdd}
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
+                    className="bg-teal-800 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center"
                   >
                     Add<IoAddCircle className="ml-2" />
                   </button>
@@ -154,6 +162,7 @@ const Challenges = () => {
           challenge={challenge}
           role={userData.role}
           onUpdate={handleChallengeUpdate}
+          userData={userData}
         />
       ))}
     </div>

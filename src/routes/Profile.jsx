@@ -1,10 +1,7 @@
-import { Avatar, Box, Flex, Image, Tag } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import { AiFillEdit } from "react-icons/ai";
-import { GiPodiumSecond, GiPodiumWinner, GiPodiumThird } from "react-icons/gi";
-import axios from "axios";
-import { useToast } from "@chakra-ui/react";
-import { fetchUserData } from "../services/userServices";
+import { Box, Flex } from "@chakra-ui/react";
+import StudentDetailsSection from "../components/profile/studentDetails/StudentDetailsSection"
+import CodingPlatformsSection from "../components/profile/codingPlatforms/CodingPlatformsSection";
+import UserBio from "../components/profile/userBio/UserBio";
 
 function Profile() {
   const toast = useToast();
